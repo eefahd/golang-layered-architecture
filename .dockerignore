@@ -1,0 +1,59 @@
+# Build artifacts
+build/
+*.exe
+*.dll
+*.so
+*.dylib
+main
+
+# Test files
+*.test
+*.out
+coverage.out
+coverage.html
+
+# Databases
+*.db
+*.db-shm
+*.db-wal
+
+# Data files
+data/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+test/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore

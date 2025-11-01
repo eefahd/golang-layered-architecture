@@ -1,0 +1,14 @@
+# Database files
+contacts.db
+*.db
+
+# File store data
+data/
+
+# Build output
+build/
+*.exe
+main
+
+# macOS
+.DS_Store

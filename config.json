@@ -1,0 +1,26 @@
+{
+  "store": {
+    "type": "sqlite",
+    "sqlite": {
+      "db_path": "./contacts.db",
+      "schema_path": "./db/migrations/schema.sql"
+    },
+    "filestore": {
+      "file_path": "./data/contacts.json"
+    },
+    "postgres": {
+      "host": "localhost",
+      "port": 5432,
+      "user": "postgres",
+      "password": "postgres",
+      "dbname": "contacts",
+      "schema_path": "./db/migrations/schema.sql"
+    }
+  },
+  "server": {
+    "port": "8080"
+  },
+  "email": {
+    "token": "mock-token"
+  }
+}

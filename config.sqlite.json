@@ -1,0 +1,15 @@
+{
+  "store": {
+    "type": "sqlite",
+    "sqlite": {
+      "db_path": "/app/data/contacts.db",
+      "schema_path": "./db/migrations/schema.sql"
+    }
+  },
+  "server": {
+    "port": "8080"
+  },
+  "email": {
+    "token": "mock-token"
+  }
+}

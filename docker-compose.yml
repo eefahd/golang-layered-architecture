@@ -1,0 +1,96 @@
+services:
+  # HTTP API Service (PostgreSQL)
+  api:
+    build: .
+    container_name: contact-manager-api-go
+    command: /app/bin/api
+    volumes:
+      - ./config.postgres.json:/app/config.json
+      - ./db:/app/db
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - contact-network
+    restart: unless-stopped
+
+  # CLI Service (PostgreSQL)
+  cli:
+    build: .
+    container_name: contact-manager-cli-go
+    command: sleep infinity
+    volumes:
+      - ./config.postgres.json:/app/config.json
+      - ./db:/app/db
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - contact-network
+    profiles:
+      - cli
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: contact-manager-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/migrations:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_DB=${POSTGRES_DB:-contacts}
+    networks:
+      - contact-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # SQLite-based API
+  api-sqlite:
+    build: .
+    container_name: contact-manager-api-sqlite-go
+    command: /app/bin/api
+    volumes:
+      - ./config.sqlite.json:/app/config.json
+      - ./db:/app/db
+      - sqlite_data:/app/data
+    ports:
+      - "8081:8080"
+    networks:
+      - contact-network
+    restart: unless-stopped
+    profiles:
+      - sqlite
+
+  # SQLite-based CLI
+  cli-sqlite:
+    build: .
+    container_name: contact-manager-cli-sqlite-go
+    command: sleep infinity
+    volumes:
+      - ./config.sqlite.json:/app/config.json
+      - ./db:/app/db
+      - sqlite_data:/app/data
+    networks:
+      - contact-network
+    profiles:
+      - sqlite-cli
+
+volumes:
+  postgres_data:
+    driver: local
+  sqlite_data:
+    driver: local
+
+networks:
+  contact-network:
+    driver: bridge
