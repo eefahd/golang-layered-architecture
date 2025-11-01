@@ -182,6 +182,14 @@ go build -o bin/cli ./cmd/cli
 
 ---
 
+## 📚 Learn More
+
+For a detailed explanation of the layered architecture pattern and the design decisions behind this example, see:
+
+👉 **[Medium Article: How Layered Architecture Just Makes Sense. A Natural Way to Understand It](https://medium.com/@fahd.hus/how-layered-architecture-just-makes-sense-a-natural-way-to-understand-it-d85dce8ce914)**
+
+---
+
 ## 🪪 License
 
 This project is provided for **educational purposes** under the [MIT License](LICENSE).
